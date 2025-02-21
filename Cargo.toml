@@ -3,6 +3,9 @@ name = "pc-remotemanager-client"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "pc-remotemanager-client"
+
 [dependencies]
 tokio = { version = "1.0", features = ["full"] }
 tokio-tungstenite = "0.20"

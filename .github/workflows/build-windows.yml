@@ -33,5 +33,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: pc-remotemanager-windows-${{ matrix.target }}
-        path: target/${{ matrix.target }}/release/client.exe
+        name: pc-remotemanager-windows-${{ matrix.target }}.exe
+        path: target/${{ matrix.target }}/release/pc-remotemanager-client.exe
