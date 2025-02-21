@@ -8,7 +8,7 @@ use std::process::Command;
 enum ActionType {
     Immediately,
     Scheduled,
-    Clear,
+    Abort,
 }
 
 #[derive(Debug, Deserialize)]
@@ -39,7 +39,7 @@ pub fn shutdown_handler(data: Value) -> Result<(), Box<dyn Error>> {
                     .spawn()?;
             }
         },
-        ActionType::Clear => {
+        ActionType::Abort => {
             println!("Clearing scheduled shutdown");
             Command::new("shutdown")
                 .args(["/a"])
