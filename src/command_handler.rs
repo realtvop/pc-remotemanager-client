@@ -1,16 +1,8 @@
 use std::collections::HashMap;
 use serde_json::Value;
+mod handlers;
 
 pub type HandlerFn = Box<dyn Fn(Value) -> Result<(), Box<dyn std::error::Error>> + Send + Sync>;
-
-pub mod handlers {
-    use super::*;
-
-    pub fn handle_abc(data: Value) -> Result<(), Box<dyn std::error::Error>> {
-        println!("Handling ABC command with data: {:?}", data);
-        Ok(())
-    }
-}
 
 pub struct CommandRouter {
     handlers: HashMap<String, HandlerFn>,
@@ -39,6 +31,6 @@ impl CommandRouter {
     }
 
     pub fn register_default_handlers(&mut self) {
-        self.register("abc", handlers::handle_abc);
+        self.register("shutdown", handlers::shutdown_handler);
     }
 }
