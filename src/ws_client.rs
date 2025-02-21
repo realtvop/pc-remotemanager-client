@@ -29,15 +29,6 @@ impl WebSocketClient {
         }
     }
 
-    pub fn register_handler<F>(&mut self, command_type: &str, handler: F)
-    where
-        F: Fn(serde_json::Value) -> Result<(), Box<dyn std::error::Error>> + Send + Sync + 'static
-    {
-        let router: &mut CommandRouter = Arc::get_mut(&mut self.router)
-            .expect("Failed to get mutable reference to router");
-        router.register(command_type, handler);
-    }
-
     pub async fn connect(&self) -> Result<(), Box<dyn std::error::Error>> {
         let url = Url::parse(&self.server_url)?;
         let (ws_stream, _) = connect_async(url).await?;
