@@ -24,7 +24,7 @@ pub fn shutdown_handler(data: Value) -> Result<(), Box<dyn Error>> {
     let params: ShutdownParams = serde_json::from_value(data)?;
     println!("Handling shutdown command: {:?}", params);
     
-    let msg = params.message.unwrap_or_default();
+    let msg = params.message.unwrap_or("via pc-remotemanager".to_string());
     match params.action_type {
         ActionType::Immediately => {
             println!("Shutting down immediately");
@@ -43,7 +43,7 @@ pub fn shutdown_handler(data: Value) -> Result<(), Box<dyn Error>> {
         ActionType::Abort => {
             println!("Clearing scheduled shutdown");
             Command::new("shutdown")
-                .args(["/a", "/c", &msg])
+                .args(["/a"])
                 .spawn()?;
         }
     }
