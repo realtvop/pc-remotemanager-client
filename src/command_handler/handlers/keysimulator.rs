@@ -21,6 +21,7 @@ enum KeyAction {
     TaskMgr,
     VirtualDesktopLeft,
     VirtualDesktopRight,
+    WinD,
 }
 
 #[derive(Debug, Deserialize)]
@@ -48,6 +49,11 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
             enigo.key_down(Key::Alt);
             enigo.key_click(Key::F4);
             enigo.key_up(Key::Alt);
+        },
+        KeyAction::WinD => {
+            enigo.key_down(Key::Windows);
+            enigo.key_click(Key::D);
+            enigo.key_up(Key::Windows);
         },
         KeyAction::TaskMgr => {
             enigo.key_down(Key::Control);
