@@ -19,6 +19,8 @@ enum KeyAction {
     // hotkey
     AltF4,
     TaskMgr,
+    VirtualDesktopLeft,
+    VirtualDesktopRight,
 }
 
 #[derive(Debug, Deserialize)]
@@ -52,6 +54,20 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
             enigo.key_down(Key::Shift);
             enigo.key_click(Key::Escape);
             enigo.key_up(Key::Shift);
+            enigo.key_up(Key::Control);
+        },
+        KeyAction::VirtualDesktopLeft => {
+            enigo.key_down(Key::Control);
+            enigo.key_down(Key::Windows);
+            enigo.key_click(Key::LeftArrow);
+            enigo.key_up(Key::Windows);
+            enigo.key_up(Key::Control);
+        },
+        KeyAction::VirtualDesktopRight => {
+            enigo.key_down(Key::Control);
+            enigo.key_down(Key::Windows);
+            enigo.key_click(Key::RightArrow);
+            enigo.key_up(Key::Windows);
             enigo.key_up(Key::Control);
         },
     }
