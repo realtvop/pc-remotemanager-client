@@ -1,0 +1,3 @@
+[websocket]
+server = "ws://localhost:8080"
+timeout = 30

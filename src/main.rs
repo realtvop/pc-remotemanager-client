@@ -3,7 +3,7 @@ mod command_handler;
 
 use std::fs;
 use serde::{Deserialize};
-use serde_yaml;
+use toml;
 use ws_client::WebSocketClient;
 
 #[derive(Debug, Deserialize)]
@@ -20,8 +20,8 @@ struct WebSocketConfig {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Load configuration
-    let config_content = fs::read_to_string("config.yml")?;
-    let config: Config = serde_yaml::from_str(&config_content)?;
+    let config_content = fs::read_to_string("config.toml")?;
+    let config: Config = toml::from_str(&config_content)?;
 
     // Create and connect websocket client
     let ws_client = WebSocketClient::new(config.websocket.server);
