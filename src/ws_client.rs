@@ -12,7 +12,7 @@ use tokio::time::{sleep, Duration};
 struct WsMessage {
     #[serde(rename = "type")]
     message_type: String,
-    task_id: Option<i64>,
+    // task_id: Option<i64>,
     data: Option<serde_json::Value>,
 }
 

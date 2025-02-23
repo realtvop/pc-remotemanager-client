@@ -6,12 +6,17 @@ use std::error::Error;
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
 enum KeyAction {
+    // single key
     Up,
     Down,
     Left,
     Right,
     Enter,
     Escape,
+    VolumeUp,
+    VolumeDown,
+    VolumeMute,
+    // hotkey
     AltF4,
     TaskMgr,
 }
@@ -34,6 +39,9 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
         KeyAction::Right => enigo.key_click(Key::RightArrow),
         KeyAction::Enter => enigo.key_click(Key::Return),
         KeyAction::Escape => enigo.key_click(Key::Escape),
+        KeyAction::VolumeUp => enigo.key_click(Key::VolumeUp),
+        KeyAction::VolumeDown => enigo.key_click(Key::VolumeDown),
+        KeyAction::VolumeMute => enigo.key_click(Key::VolumeMute),
         KeyAction::AltF4 => {
             enigo.key_down(Key::Alt);
             enigo.key_click(Key::F4);
