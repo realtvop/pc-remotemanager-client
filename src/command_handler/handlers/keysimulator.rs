@@ -1,6 +1,6 @@
 use enigo::{
-    // Direction::{Press, Release},
-    Enigo, KeyboardControllable, Key
+    Direction::{Click, Press, Release},
+    Enigo, Keyboard, Key, Settings,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -37,51 +37,49 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
     let params: KeyParams = serde_json::from_value(data)?;
     println!("Handling keyboard command: {:?}", params);
     
-    let mut enigo = Enigo::new();
+    let mut enigo = Enigo::new(&Settings::default()).unwrap();
     
     match params.key {
-        KeyAction::Up => enigo.key_click(Key::UpArrow),
-        KeyAction::Down => enigo.key_click(Key::DownArrow),
-        KeyAction::Left => enigo.key_click(Key::LeftArrow),
-        KeyAction::Right => enigo.key_click(Key::RightArrow),
-        KeyAction::Enter => enigo.key_click(Key::Return),
-        KeyAction::Escape => enigo.key_click(Key::Escape),
-        KeyAction::VolumeUp => enigo.key_click(Key::VolumeUp),
-        KeyAction::VolumeDown => enigo.key_click(Key::VolumeDown),
-        KeyAction::VolumeMute => enigo.key_click(Key::VolumeMute),
-        KeyAction::PlayPause => enigo.key_click(Key::MediaPlayPause),
+        KeyAction::Up => enigo.key(Key::UpArrow, Click).unwrap(),
+        KeyAction::Down => enigo.key(Key::DownArrow, Click).unwrap(),
+        KeyAction::Left => enigo.key(Key::LeftArrow, Click).unwrap(),
+        KeyAction::Right => enigo.key(Key::RightArrow, Click).unwrap(),
+        KeyAction::Enter => enigo.key(Key::Return, Click).unwrap(),
+        KeyAction::Escape => enigo.key(Key::Escape, Click).unwrap(),
+        KeyAction::VolumeUp => enigo.key(Key::VolumeUp, Click).unwrap(),
+        KeyAction::VolumeDown => enigo.key(Key::VolumeDown, Click).unwrap(),
+        KeyAction::VolumeMute => enigo.key(Key::VolumeMute, Click).unwrap(),
+        KeyAction::PlayPause => enigo.key(Key::MediaPlayPause, Click).unwrap(),
         KeyAction::AltF4 => {
-            // enigo.key(Key::Alt, Press).unwrap();
-            enigo.key_down(Key::Alt);
-            enigo.key_click(Key::F4);
-            enigo.key_up(Key::Alt);
-            // enigo.key(Key::Alt, Release).unwrap();
+            enigo.key(Key::Alt, Press).unwrap();
+            enigo.key(Key::F4, Click).unwrap();
+            enigo.key(Key::Alt, Release).unwrap();
         },
         KeyAction::WinD => {
-            enigo.key_down(Key::Meta);
-            enigo.key_click(Key::D);//Unicode('d'));
-            enigo.key_up(Key::Meta);
+            enigo.key(Key::Meta, Press).unwrap();
+            enigo.key(Key::Unicode('d'), Click).unwrap();
+            enigo.key(Key::Meta, Release).unwrap();
         },
         KeyAction::TaskMgr => {
-            enigo.key_down(Key::Control);
-            enigo.key_down(Key::Shift);
-            enigo.key_click(Key::Escape);
-            enigo.key_up(Key::Shift);
-            enigo.key_up(Key::Control);
+            enigo.key(Key::Control, Press).unwrap();
+            enigo.key(Key::Shift, Press).unwrap();
+            enigo.key(Key::Escape, Click).unwrap();
+            enigo.key(Key::Shift, Release).unwrap();
+            enigo.key(Key::Control, Release).unwrap();
         },
         KeyAction::VirtualDesktopLeft => {
-            enigo.key_down(Key::Control);
-            enigo.key_down(Key::Meta);
-            enigo.key_click(Key::LeftArrow);
-            enigo.key_up(Key::Meta);
-            enigo.key_up(Key::Control);
+            enigo.key(Key::Control, Press).unwrap();
+            enigo.key(Key::Meta, Press).unwrap();
+            enigo.key(Key::LeftArrow, Click).unwrap();
+            enigo.key(Key::Meta, Release).unwrap();
+            enigo.key(Key::Control, Release).unwrap();
         },
         KeyAction::VirtualDesktopRight => {
-            enigo.key_down(Key::Control);
-            enigo.key_down(Key::Meta);
-            enigo.key_click(Key::RightArrow);
-            enigo.key_up(Key::Meta);
-            enigo.key_up(Key::Control);
+            enigo.key(Key::Control, Press).unwrap();
+            enigo.key(Key::Meta, Press).unwrap();
+            enigo.key(Key::RightArrow, Click).unwrap();
+            enigo.key(Key::Meta, Release).unwrap();
+            enigo.key(Key::Control, Release).unwrap();
         },
     }
 
