@@ -55,7 +55,7 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
             enigo.key_down(Key::Alt);
             enigo.key_click(Key::F4);
             enigo.key_up(Key::Alt);
-            enigo.key(Key::Alt, Release).unwrap();
+            // enigo.key(Key::Alt, Release).unwrap();
         },
         KeyAction::WinD => {
             enigo.key_down(Key::Windows);
