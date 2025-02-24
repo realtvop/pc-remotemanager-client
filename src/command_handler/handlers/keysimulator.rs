@@ -34,7 +34,7 @@ struct KeyParams {
 }
 #[derive(Debug, Deserialize)]
 struct InputParams {
-    text: str,
+    text: String,
 }
 
 pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
