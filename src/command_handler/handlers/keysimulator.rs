@@ -37,7 +37,7 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
     let params: KeyParams = serde_json::from_value(data)?;
     println!("Handling keyboard command: {:?}", params);
     
-    let mut enigo = Enigo::new().unwrap();
+    let mut enigo = Enigo::new();
     
     match params.key {
         KeyAction::Up => enigo.key_click(Key::UpArrow),
@@ -49,7 +49,7 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
         KeyAction::VolumeUp => enigo.key_click(Key::VolumeUp),
         KeyAction::VolumeDown => enigo.key_click(Key::VolumeDown),
         KeyAction::VolumeMute => enigo.key_click(Key::VolumeMute),
-        KeyAction::PlayPause => enigo.key_click(Key::PlayPause),
+        KeyAction::PlayPause => enigo.key_click(Key::MediaPlayPause),
         KeyAction::AltF4 => {
             // enigo.key(Key::Alt, Press).unwrap();
             enigo.key_down(Key::Alt);
@@ -58,9 +58,9 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
             // enigo.key(Key::Alt, Release).unwrap();
         },
         KeyAction::WinD => {
-            enigo.key_down(Key::Windows);
-            enigo.key_click(Key::Unicode('d'));
-            enigo.key_up(Key::Windows);
+            enigo.key_down(Key::Meta);
+            enigo.key_click(Key::D);//Unicode('d'));
+            enigo.key_up(Key::Meta);
         },
         KeyAction::TaskMgr => {
             enigo.key_down(Key::Control);
@@ -71,16 +71,16 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
         },
         KeyAction::VirtualDesktopLeft => {
             enigo.key_down(Key::Control);
-            enigo.key_down(Key::Windows);
+            enigo.key_down(Key::Meta);
             enigo.key_click(Key::LeftArrow);
-            enigo.key_up(Key::Windows);
+            enigo.key_up(Key::Meta);
             enigo.key_up(Key::Control);
         },
         KeyAction::VirtualDesktopRight => {
             enigo.key_down(Key::Control);
-            enigo.key_down(Key::Windows);
+            enigo.key_down(Key::Meta);
             enigo.key_click(Key::RightArrow);
-            enigo.key_up(Key::Windows);
+            enigo.key_up(Key::Meta);
             enigo.key_up(Key::Control);
         },
     }
