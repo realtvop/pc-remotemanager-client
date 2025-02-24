@@ -32,6 +32,10 @@ enum KeyAction {
 struct KeyParams {
     key: KeyAction,
 }
+#[derive(Debug, Deserialize)]
+struct InputParams {
+    text: str,
+}
 
 pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
     let params: KeyParams = serde_json::from_value(data)?;
@@ -82,6 +86,17 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
             enigo.key(Key::Control, Release).unwrap();
         },
     }
+
+    Ok(())
+}
+
+pub fn input_handler(data: Value) -> Result<(), Box<dyn Error>> {
+    let params: InputParams = serde_json::from_value(data)?;
+    println!("Handling input: {:?}", params);
+    
+    let mut enigo = Enigo::new(&Settings::default()).unwrap();
+    
+    enigo.text(&params.text).unwrap();
 
     Ok(())
 }
