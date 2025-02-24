@@ -1,4 +1,7 @@
-use enigo::{Enigo, KeyboardControllable, Key};
+use enigo::{
+    // Direction::{Press, Release},
+    Enigo, KeyboardControllable, Key
+};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::error::Error;
@@ -16,6 +19,7 @@ enum KeyAction {
     VolumeUp,
     VolumeDown,
     VolumeMute,
+    PlayPause,
     // hotkey
     AltF4,
     TaskMgr,
@@ -33,7 +37,7 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
     let params: KeyParams = serde_json::from_value(data)?;
     println!("Handling keyboard command: {:?}", params);
     
-    let mut enigo = Enigo::new();
+    let mut enigo = Enigo::new().unwrap();
     
     match params.key {
         KeyAction::Up => enigo.key_click(Key::UpArrow),
@@ -45,14 +49,17 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
         KeyAction::VolumeUp => enigo.key_click(Key::VolumeUp),
         KeyAction::VolumeDown => enigo.key_click(Key::VolumeDown),
         KeyAction::VolumeMute => enigo.key_click(Key::VolumeMute),
+        KeyAction::PlayPause => enigo.key_click(Key::PlayPause),
         KeyAction::AltF4 => {
+            // enigo.key(Key::Alt, Press).unwrap();
             enigo.key_down(Key::Alt);
             enigo.key_click(Key::F4);
             enigo.key_up(Key::Alt);
+            enigo.key(Key::Alt, Release).unwrap();
         },
         KeyAction::WinD => {
             enigo.key_down(Key::Windows);
-            enigo.key_click(Key::D);
+            enigo.key_click(Key::Unicode('d'));
             enigo.key_up(Key::Windows);
         },
         KeyAction::TaskMgr => {
