@@ -33,5 +33,6 @@ impl CommandRouter {
     pub fn register_default_handlers(&mut self) {
         self.register("shutdown", handlers::shutdown_handler);
         self.register("key", handlers::keyboard_handler);
+        self.register("input", handlers::input_handler);
     }
 }
