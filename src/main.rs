@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 mod ws_client;
 mod command_handler;
 
