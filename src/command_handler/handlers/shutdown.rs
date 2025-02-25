@@ -15,7 +15,7 @@ enum ActionType {
 struct ShutdownParams {
     action_type: ActionType,
     #[serde(skip_serializing_if = "Option::is_none")]
-    interval: Option<i64>,
+    interval: Option<i64 | String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     message: Option<String>,
 }
