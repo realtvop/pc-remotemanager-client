@@ -7,6 +7,7 @@ use std::process::Command;
 #[serde(rename_all = "lowercase")]
 enum ActionType {
     Immediately,
+    Restart,
     Scheduled,
     Abort,
 }
@@ -30,6 +31,12 @@ pub fn shutdown_handler(data: Value) -> Result<(), Box<dyn Error>> {
             println!("Shutting down immediately");
             Command::new("shutdown")
                 .args(["/s", "/t", "0", "/c", &msg])
+                .spawn()?;
+        },
+        ActionType::Restart => {
+            println!("Restarting");
+            Command::new("shutdown")
+                .args(["/r", "/t", "0", "/c", &msg])
                 .spawn()?;
         },
         ActionType::Scheduled => {
