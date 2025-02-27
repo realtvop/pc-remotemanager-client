@@ -26,6 +26,7 @@ enum KeyAction {
     VirtualDesktopLeft,
     VirtualDesktopRight,
     WinD,
+    EnterSlideshow,
 }
 
 #[derive(Debug, Deserialize)]
@@ -84,6 +85,11 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
             enigo.key(Key::RightArrow, Click).unwrap();
             enigo.key(Key::Meta, Release).unwrap();
             enigo.key(Key::Control, Release).unwrap();
+        },
+        KeyAction::EnterSlideshow => {
+            enigo.key(Key::Shift, Press).unwrap();
+            enigo.key(Key::F5, Click).unwrap();
+            enigo.key(Key::Shift, Release).unwrap();
         },
     }
 
