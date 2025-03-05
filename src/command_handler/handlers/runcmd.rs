@@ -12,8 +12,7 @@ pub fn command_handler(data: Value) -> Result<(), Box<dyn Error>> {
     let params: CommandParams = serde_json::from_value(data)?;
     println!("Handling command: {:?}", params);
     
-    println!("Running: {}", interval);
-        Command::new(params.command).spawn()?;
+    Command::new(params.command).spawn()?;
 
     Ok(())
 }
