@@ -27,6 +27,11 @@ enum KeyAction {
     VirtualDesktopRight,
     WinD,
     EnterSlideshow,
+    // powerpoint
+    PPTPen,
+    PPTArrow,
+    PPTEraser,
+    PPTCleanSketch,
 }
 
 #[derive(Debug, Deserialize)]
@@ -90,6 +95,25 @@ pub fn keyboard_handler(data: Value) -> Result<(), Box<dyn Error>> {
             enigo.key(Key::Shift, Press).unwrap();
             enigo.key(Key::F5, Click).unwrap();
             enigo.key(Key::Shift, Release).unwrap();
+        },
+
+        KeyAction::PPTPen => {
+            enigo.key(Key::Control, Press).unwrap();
+            enigo.key(Key::P, Click).unwrap();
+            enigo.key(Key::Control, Release).unwrap();
+        },
+        KeyAction::PPTArrow => {
+            enigo.key(Key::Control, Press).unwrap();
+            enigo.key(Key::A, Click).unwrap();
+            enigo.key(Key::Control, Release).unwrap();
+        },
+        KeyAction::PPTEraser => {
+            enigo.key(Key::Control, Press).unwrap();
+            enigo.key(Key::E, Click).unwrap();
+            enigo.key(Key::Control, Release).unwrap();
+        },
+        KeyAction::PPTCleanSketch => {
+            enigo.key(Key::E, Click).unwrap();
         },
     }
 
